@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 .App {
   text-align: center;
 }
@@ -5,9 +7,17 @@
 .App-logo {
   height: 40vmin;
 }
+body#form{
+  background-color: #97faf2;
+  
+  
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
 
+}
 .App-header {
-  background-color: #282c34;
+  background-color: #97faf2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +27,298 @@
   color: white;
 }
 
+.App-header2 {
+  background-color: #97faf2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: red;
+}
+.App-header2-1 {
+  background: url("Images/Fondo-Ladrillo.jpg") no-repeat  ;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: rgb(252, 88, 88);
+}
+.App-header2-2 {
+  background: url("Images/Fondo-Azul.jpg") no-repeat  ;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-header2-3 {
+  background: url("Images/Fondo3.jpg") no-repeat;
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.App-header2-4 {
+  background: url("Images/Fondo4.jpg") no-repeat;
+  background-size: cover;
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.button2 {
+  /* background-color:#3e97c1; */
+  background-color: rgb(94, 100, 105);
+	border: 2px solid;
+	border-radius: 25px;
+  text-decoration: none;
+  align-content: center;
+  text-align: center;
+  
+   padding: 0px 23px; 
+	color: white;
+	margin-top: 10px;
+  display: inline-block;
+  /* float: left; */
+	
+}
+
+.CuartoMenu {
+  background: url("Images/fondo2.jpg") no-repeat  ;
+  height: 100%; 
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center center;
+  background-attachment: fixed;
+  background-color: #464646;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  
+  /*background: black;*/
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
+  
+  
+  font-size: calc(10px + 2vmin);
+  color: #97faf2;
+}
+
+div#bg-dark
+{
+  background-color: #343a40!important;
+}
+div#containerprincipal{
+  position: absolute;
+  width: 100%;
+  height: 100%; 
+  left: 0;
+}
+div#height100{
+  height: 100%;
+
+}
+.logo{
+  width: 100;
+  position:absolute;
+left:0;
+top:0;
+float: left;
+}
+.Formulario
+{
+  
+  align-content: center;
+  align-self: auto;
+  background-color: aliceblue;
+  position:relative;
+  font-family: 'Roboto', sans-serif;
+  align-content: center;
+  align-items: flex-start;
+  display:block;
+  margin-bottom:80px;
+  width:500px;
+  height:560px;
+  border-radius:20px;
+  overflow:hidden;
+  z-index:1;
+}
+
+.Formulario2
+{
+  
+  align-content: center;
+  align-self: auto;
+  background-color: aliceblue;
+  position:relative;
+  font-family: 'Roboto', sans-serif;
+  align-content: center;
+  align-items: flex-start;
+  display:block;
+  margin-bottom:80px;
+  width:500px;
+  height:750px;
+  border-radius:20px;
+  overflow:hidden;
+  z-index:1;
+}
+
+input#form
+{
+  padding:10px;
+  width:200px;
+  height:10px;
+  border-radius:20px;
+  border: 2px solid rgb(180, 180, 180);
+  padding-left: 20px;
+ font-size: 17px;
+  
+  
+  
+}
+
+div#LuzEncendido
+{
+  color: chartreuse;
+  /* background-image: url("Images/luzEncendida.png")  ;
+  width: 300px;
+  display: flex;
+  height: 250px;
+  cursor: pointer; */
+  /* cursor: pointer; */
+  
+}
+
+div#LuzApagado
+{
+  color: red;
+  /* background-image: url("Images/luzApagada.png") ;
+  width: 300px;
+  display: flex;
+  height: 250px;
+  cursor: pointer; */
+  /* cursor: pointer; */
+}
+
+
+div#separador
+{padding: 20px;
+  align-self: auto;
+  
+}
+
+div#containerMain
+{
+  /* float: left; */
+  display: inline-block;
+  /* align-items: center; */
+  justify-content: center;
+  
+}
+select#form
+{
+  
+  
+  width:200px;
+  height:30px;
+  border-radius:20px;
+  border: 2px solid rgb(180, 180, 180);
+  padding-left: center;
+  font-size: 17px;
+  
+}
+option#form
+{
+  padding:10px;
+  width:200px;
+  height:5px;
+  border-radius:20px;
+  align-items: center;
+  align-content: center;
+}
+h2
+{
+  padding:10px;
+  font-weight:lighter;
+  
+  color:#414141;
+}
 .App-link {
   color: #09d3ac;
+}
+
+.button {
+	background-color:#3e97c1;
+	border: 2px solid white;
+	border-radius: 25px;
+	text-decoration: none;
+	padding: 10px 23px;
+	color: white;
+	margin-top: 10px;
+  display: inline-block;
+  font-size: 20px;
+  
+	
+}
+
+
+
+
+.Emergente {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  display: none;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.ContenidoEmergente {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: #3e97c1;
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  border-radius: 0.5rem;
+}
+.Cerrar {
+  float: right;
+  width: 1.5rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: lightgray;
+  cursor: pointer;
 }
