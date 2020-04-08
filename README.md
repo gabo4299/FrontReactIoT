@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Funciona con la vercion 1 de IoT Home Sin Node MCU
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
