@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Funciona con la vercion 1 de IoT Home Sin Node MCU
+Funciona con la vercion 2 de IoT Home Con MCUy ESP32
 
 
 
