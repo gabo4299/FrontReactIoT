@@ -10,19 +10,20 @@ class FormCorVar extends React.Component {
 constructor(e){
     super(e);
     this.state = {
-        IdCortina: '',
         Pinmotor: '',
-        PinSensor1: '',
-        PinSensor2: '',
+        PinSen1: '',
+        PinSen2: '',
         Tipo:'',
         IdCuarto:this.props.match.params.date,
         Cuartos:undefined,
         linkcuarto:'',
         NombreCuarto:'',
         Nombre:'',   
-        PinLibreMotor:undefined,
-        PinLibreSen1:undefined,
-        PinLibreSen2:undefined,
+        Dispositivo:"Rasp",
+        IdDisp:undefined,
+        PinesSLibres:undefined,
+        PinsSenLibres:undefined,
+        IDsDisponibles:undefined,
 
       }
 }
@@ -33,6 +34,7 @@ componentDidMount() {
     this.setState({linkcuarto})
     let Cuartos=[];
     const axx=[];
+    
     let linget=ipFunc["ipapi"]+"/Cuarto/"+this.props.match.params.date
     axios.get(linget)
     .then(response => {
@@ -53,57 +55,136 @@ componentDidMount() {
          this.setState({ Cuartos });
       });
 
-      if (Cuartos != undefined)
-      {
-        let PinLibreMotor=[];
-        let linkMot=ipFunc["ipapi"]+"/PinCor"
-        let PinLibreSen1=[];
-        let linkSen1=ipFunc["ipapi"]+"/PinSen1"
-        let PinLibreSen2=[];
-        let linkSen2=ipFunc["ipapi"]+"/PinSen2"
-
-        axios.get(linkMot)
-        .then(response => {
-          for (let i = 0 ; i < ipFunc["NroPinesCor"] ; i++)
-          { if (response.data[i] != undefined)
+      let linkDisp =ipFunc["ipapi"]+"/CPU/Rasps"
+        axios.get(linkDisp)
+        .then (response =>
             {
-              PinLibreMotor.push({PinLibre: response.data[i]})
-            }      }
-          
-          this.setState({ PinLibreMotor });
-        })
-        axios.get(linkSen1)
-        .then(response => {
-          for (let i = 0 ; i < ipFunc["NroPinesSen1"] ; i++)
-          { if (response.data[i] != undefined)
-            {
-              PinLibreSen1.push({PinLibre: response.data[i]})
-            }      }
-              this.setState({PinLibreSen1});
-        })
-        axios.get(linkSen2)
-        .then(response => {
-          for (let i = 0 ; i < ipFunc["NroPinesSen2"] ; i++)
-          { if (response.data[i] != undefined)
-            {
-              PinLibreSen2.push({PinLibre: response.data[i]})
-            }      }
-              this.setState({PinLibreSen2});
-              console.log(PinLibreSen2)
-        })
-
-      }
-  
+            
+                this.setState({
+                    IDsDisponibles:response.data.IdRasp
+                  });
+            })
   }
     
-      onChange(e){
-        this.setState({
-        
-          [e.target.name]:e.target.value
-  
-    
+  onChange(e){
+    let  val = e.target.value
+    let  nam = e.target.name
+    let linkDisp
+ if (e.target.name == "Dispositivo")
+{
+    if (val ="IoT"){
+       linkDisp =ipFunc["ipapi"]+"/CPU/Rasps"
+      val="Rasp"
+    }
+    else{
+       linkDisp =ipFunc["ipapi"]+"/CPU/"+e.target.value+"s"
+    }
+     
+     axios.get(linkDisp)
+         .then (response =>
+         {
+             if (response.data != "No se registraron")
+             {
+                 if (val=="Rasp")
+             {
+                 this.setState({
+                     IDsDisponibles:response.data.IdRasp
+                  });
+             }
+             if (val=="Node")
+             {
+                 this.setState({
+                     IDsDisponibles:response.data.IdNode
+                  });
+             }
+             if (val=="Esp32")
+             {
+                 this.setState({
+                     IDsDisponibles:response.data.IdEsp32
+                  });
+             }
+                 
+             }
+             else
+             {
+                 var s="No se registraron"
+                 this.setState({
+                     IDsDisponibles:[s],
+                     PinesSLibres:undefined
+                  });
+             }
+     
+         })
+         this.setState({
+             [e.target.name]:e.target.value
+         })
+     
+              
+} 
+if (e.target.name == "Pinmotor" ||e.target.name == "Nombre"||e.target.name == "Marca"||e.target.name == "NewMarca" ||e.target.name == "PinSen1"||e.target.name == "PinSen2"||e.target.name == "Tipo" ){
+         if ((nam == "PinSen1" && (val!= this.state.PinSen2))  || (nam == "PinSen2" && (val!= this.state.PinSen1)) || nam!="PinSen1"|| nam!="PinSen2"|| nam=="Nombre")
+         {
+           console.log("el name es ",e.target.name,"el valor",val)
+          this.setState({ 
+            [e.target.name]:e.target.value
         })
+         }
+         
+         
+         else{
+           alert ("pines de sensores iguales")
+         }
+}
+
+
+  }
+  onChangeid(e)
+  {
+      if( e.target.value != "No se registraron")
+      {
+        if (e.target.value == "")
+        {
+            this.setState({
+                PinesSLibres:undefined,
+                [e.target.name]:e.target.value
+            })
+        }
+        else{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+        let linkPins=ipFunc["ipapi"]+"/CPU/"+this.state.Dispositivo+"/"+e.target.value+"/PinFree/Luz"
+        axios.get(linkPins)
+        .then (response => {
+            
+            if (response.data != "no existe id")
+            {
+                console.log("Entro a qui lptm response : ",response.data)
+                this.setState({
+                    PinesSLibres:response.data
+                })
+
+            }
+        })
+        let linkPinsen=ipFunc["ipapi"]+"/CPU/"+this.state.Dispositivo+"/"+e.target.value+"/PinFree/Sen"
+        axios.get(linkPinsen)
+        .then (response => {
+            
+            if (response.data != "no existe id")
+            {
+                // console.log("Entro a qui lptm response : ",response.data)
+                this.setState({
+                  PinsSenLibres:response.data
+                })
+
+            }
+        })
+        
       }
+      }
+    
+  }
+
     
     
     
@@ -111,39 +192,146 @@ componentDidMount() {
         event.preventDefault();
     
         const cor = {
-          IdCortina: this.state.IdCortina,
           Pinmotor: this.state.Pinmotor,
-          PinSensor1: this.state.PinSensor1,
-          PinSensor2: this.state.PinSensor2,
+          PinSensor1: this.state.PinSen1,
+          PinSensor2: this.state.PinSen2,
           Tipo:this.state.Tipo,
           IdCuarto:this.state.IdCuarto,
-          Nombre:this.state.Nombre
+          Nombre:this.state.Nombre,
+          Dispositivo:this.state.Dispositivo,
+          IdDisp:this.state.IdDisp,
     
         };
     
         //AYUDA CON EL LUGAR DODNE SE PONDRA EL INTERRUPTOR 
-        if (cor.Pinmotor == "" || cor.PinSensor1 == "" || cor.PinSensor2 == ""  )
+        if (cor.Pinmotor == "" || cor.PinSensor1 == "" || cor.PinSensor2 == ""  || cor.Pinmotor ==cor.PinSensor1 ||cor.Pinmotor ==cor.PinSensor2 || cor.PinSensor2==cor.PinSensor1 )
         {
+          
           alert("error de pines revisar porfavor")
         }
         else
         {
+          // console.log(cor)
         let config = {headers: {'Access-Control-Allow-Origin': "*"}};
         let lin=ipFunc["ipapi"]+"/Cuarto/";
         lin=lin+cor.IdCuarto+"/Cortina/add";
-        // console.log(lin,"este es el link ")
+        
         axios.post(lin,  cor , config)
           .then(res => {
-            //console.log(res);
+            
             console.log(res.data);
             alert(res.data);
           })
         }
       }
 render(){
-  const { PinLibreMotor } = this.state;
-  const { PinLibreSen1 } = this.state;
-  const { PinLibreSen2 } = this.state;
+  var Form;
+  const { IDsDisponibles } = this.state;
+const {PinesSLibres}= this.state;
+const {PinsSenLibres}= this.state;
+var imgs;
+if (this.state.Dispositivo=="Rasp")
+{
+      imgs=<img src={process.env.PUBLIC_URL +"/Images/Rasp.png"} alt='Rasp' width='250'/>
+ 
+
+}
+if (this.state.Dispositivo=="Node")
+{
+  imgs=<img src={process.env.PUBLIC_URL + "/Images/Node.jpg"} alt='Node' width='280'/>
+  
+}
+if (this.state.Dispositivo=="Esp32")
+{
+  imgs=<img src={process.env.PUBLIC_URL + "/Images/Esp32.png"} alt='Esp32' width='380'/>
+  
+}
+Form=<div>
+    <div id = "separador">
+       <b style={{color:"#7A7270"}}>Dispositivo:</b> <select  id = "form" value={this.state.Dispositivo} name="Dispositivo" onChange={this.onChange.bind(this)} >
+            <option value ="Rasp">Raspberry</option>
+            <option value ="Node">Node MCU</option>
+            <option value ="Esp32">Esp32</option>
+           <option value ="IoT">IoT</option>}
+
+        </select></div>
+        <div className ="container">
+            <div className= "row"> 
+            <div className="col-md-auto">  {imgs}</div>
+        <div className="col-4">
+                <div className = "row">
+                    <select   id="form"  name="IdDisp"  value={this.state.IdDisp} onChange={this.onChangeid.bind(this)} >
+                        <option name="IdDisp" value = ''>Id Dispositivo</option>
+                    {
+                IDsDisponibles && IDsDisponibles.length && IDsDisponibles.map((p,index) => {
+                    return (<option key={index} name="IdDisp"  value={p}  onChange={this.onChangeid.bind(this)} >{p}</option>)
+                    })
+                    }
+      
+                    </select>
+
+
+                </div>
+                <div id="separador"></div>
+                <div className = "row">
+                    {this.state.PinesSLibres == undefined && <h3 style={{color:"red"}}>Error de Dispositivo</h3>
+                    
+                    }
+                    {this.state.PinesSLibres != undefined  && 
+                    
+                
+                     <div className = "col">
+                       <label style={{color:"#7A7270",fontSize:"15px"}}>Pin de motor</label>
+                         <select  id = "form" value={this.state.Pinmotor} name="Pinmotor" onChange={this.onChange.bind(this)} >
+                         
+                            <option value ="" name = "Pinmotor">Eliga el pin de motor a usar en {this.state.Dispositivo}</option>
+
+                            
+                            {
+                            PinesSLibres && PinesSLibres.length && PinesSLibres.map((p,index) => {
+                    return (<option key={index} name="Pinmotor"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                    })
+                    }
+
+                     </select>
+
+                     <label style={{color:"#7A7270",fontSize:"15px"}}>Pin Sensor 1</label>
+                         <select  id = "form" value={this.state.PinSen1} name="PinSen1" onChange={this.onChange.bind(this)} >
+                         
+                            <option value ="" name = "PinSen1">Eliga el pin sensor1 a usar en {this.state.Dispositivo}</option>
+
+                            
+                            {
+                            PinsSenLibres && PinsSenLibres.length && PinsSenLibres.map((p,index) => {
+                    return (<option key={index} name="PinSen1"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                    })
+                    }
+
+                     </select>
+                     <label style={{color:"#7A7270",fontSize:"15px"}}>Pin Sensor 2</label>
+                         <select  id = "form" value={this.state.PinSen2} name="PinSen2" onChange={this.onChange.bind(this)} >
+                         
+                            <option value ="" name = "PinSen2">Eliga el pin  sensor2 a usar en {this.state.Dispositivo}</option>
+
+                            
+                            {
+                            PinsSenLibres && PinsSenLibres.length && PinsSenLibres.map((p,index) => {
+                    return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                    })
+                    }
+
+                     </select>
+                     
+                    
+                     
+                     </div>
+                     }
+                </div>
+            </div>
+       
+        </div>
+       </div>  
+  </div>
     return (
       <div className="App">
         <nav className="navbar navbar-dark bg-dark"> 
@@ -177,70 +365,24 @@ render(){
         
       <img src={process.env.PUBLIC_URL + '/Images/Escudo.png'} alt='Escudo' width='400'/>
 
-        <form onSubmit={this.handleSubmit} className="Formulario2">
+        <form onSubmit={this.handleSubmit} className="Formulario3">
         <h2>
           Formulario Cortina
         </h2>
-         <div id="separador">
-
-           <input  id="form" placeholder="ID Cortina" type="text" value={this.state.idCortina} name="IdCortina" onChange={this.onChange.bind(this)} />
-           </div>
-           <div id="separador">
-           <select   id="form"  name="IdCuarto"  value={this.state.IdCuarto} onChange={this.onChange.bind(this)} >
-            <option name="IdCuarto" value={this.state.IdCuarto} >{this.state.IdCuarto}</option>
-          
-          
-           </select>
-           </div>
+         
            <div id="separador">
            <input id="form" placeholder="Nombre"  type="text" name="Nombre"   value={this.state.Nombre} onChange={this.onChange.bind(this)}/>
            </div>
-           <div id="separador">
-    
-           <select   id="form"  name="Pinmotor"  value={this.state.Pinmotor} onChange={this.onChange.bind(this)} >
-            <option name="Pinmotor" value = ''>Pinmotor</option>
-           {
-              PinLibreMotor && PinLibreMotor.length && PinLibreMotor.map((p,index) => {
-                 return (<option key={index} name="Pinmotor"  value={p["PinLibre"]}  onChange={this.onChange.bind(this)} >{p["PinLibre"]}</option>)
-                })
-          }
-          
-           </select>
-           </div>
-
-            <div id="separador">   
-            <select   id="form"  name="PinSensor1"  value={this.state.PinSensor1} onChange={this.onChange.bind(this)} >
-            <option name="PinSensor1" value = ''>Pin Sensor 1</option>
-           {
-              PinLibreSen1 && PinLibreSen1.length && PinLibreSen1.map((p,index) => {
-                 return (<option key={index} name="PinSensor1"  value={p["PinLibre"]}  onChange={this.onChange.bind(this)} >{p["PinLibre"]}</option>)
-                })
-          }
-          
-           </select>
-           </div>
-
-           <div id="separador">
-  
-           <select   id="form"  name="PinSensor2"  value={this.state.PinSensor2} onChange={this.onChange.bind(this)} >
-            <option name="PinSensor2" value = ''>Pin Sensor 2</option>
-           {
-              PinLibreSen2 && PinLibreSen2.length && PinLibreSen2.map((p,index) => {
-                 return (<option key={index} name="PinSensor2"  value={p["PinLibre"]}  onChange={this.onChange.bind(this)} >{p["PinLibre"]}</option>)
-                })
-          }
-          
-           </select>
-           </div>
+           
            <div id="separador">
            <select   id="form"  name="Tipo"  value={this.state.Tipo} onChange={this.onChange.bind(this)} >
            <option name="Tipo" value = ''>Tipo</option>
            <option name="Tipo" value = 'Roler'>Roller</option>
            <option name="Tipo" value = 'Persiana'>Persiana</option>
            </select>
+            {Form}
 
-
-           {/* <input id="form" placeholder="Tipo"  type="text" name="Tipo"   value={this.state.Tipo} onChange={this.onChange.bind(this)}/> */}
+           
            </div>
              <div id="separador">
             <input className="button" type="submit" value="Submit"  className="button" onChange={this.onChange}/>

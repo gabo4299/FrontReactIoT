@@ -51,6 +51,7 @@ class ModCuartosVar extends React.Component {
         c.append('contrasenha',this.state.contrasenha)
         c.append("Seleccion",this.state.Seleccion)
         c.append("QuitarContra",this.state.QuitarContra)
+        c.append("idcasa",1)
         
         let config = {headers: {'Access-Control-Allow-Origin': "*",'Content-Type': 'multipart/form-data' }};
         

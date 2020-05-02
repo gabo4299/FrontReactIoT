@@ -40,6 +40,7 @@ class FormCuarto extends React.Component {
         c.append('idcuarto',this.state.idcuarto)
         c.append('contrasenha',this.state.contrasenha)
         c.append("Seleccion",this.state.Seleccion)
+        c.append("idcasa",1)
         
         let config = {headers: {'Access-Control-Allow-Origin': "*",'Content-Type': 'multipart/form-data' }};
         let linknew=ipFunc["ipapi"]+"/Cuarto/add"

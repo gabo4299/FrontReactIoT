@@ -62,8 +62,12 @@ body#form{
   color: white;
 }
 .App-header2-3 {
-  background: url("Images/Fondo3.jpg") no-repeat;
-  
+  background: url("Images/Fondo3.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -102,29 +106,124 @@ body#form{
   /* float: left; */
 	
 }
+div#dimmer-barra{
+  float: left;
+  display: inline-block;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 80%;
+  height: 10px;
+  border-radius: 10px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 70%;
+  background: rgb(125, 240, 129);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 70%;
+  background: rgb(125, 240, 129);
+  cursor: pointer;
+}
+div#CuartoMenu{
+  background: url("Images/fondo2.jpg")  no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%; 
+  width: 100%;
+  font-size: calc(10px + 2vmin);
+  color: #97faf2;
+  min-height: 100vh;
+}
+.rotate90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.slider-wrapper {
+  display: inline-block;
+  width: 20px;
+  height: 150px;
+  padding: 0;
+}
+.slider-wrapper input {
+  width: 150px;
+  height: 20px;
+  margin: 0;
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
+}
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.rotate270 {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.rotate360 {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
 
 .CuartoMenu {
-  background: url("Images/fondo2.jpg") no-repeat  ;
+  background: url("Images/fondo2.jpg")  no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   height: 100%; 
   width: 100%;
 
   /* Center and scale the image nicely */
-  background-position: center center;
+  /* background-position: center center;
   background-attachment: fixed;
   background-color: #464646;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   
   
-  /*background: black;*/
-  min-height: 100vh;
+  /* background: black; */
+  min-height: 140vh;
+  /* min-width: 150vh; */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  
-  
-  
-  
+  /* align-items: center; */
   font-size: calc(10px + 2vmin);
   color: #97faf2;
 }
@@ -168,6 +267,24 @@ float: left;
   overflow:hidden;
   z-index:1;
 }
+.FormularioLecIr
+{
+  
+  align-content: center;
+  align-self: auto;
+  background-color: aliceblue;
+  position:relative;
+  font-family: 'Roboto', sans-serif;
+  align-content: center;
+  align-items: flex-start;
+  display:block;
+  margin-bottom:80px;
+  width:630px;
+  height:980px;
+  border-radius:20px;
+  overflow:hidden;
+  z-index:1;
+}
 
 .Formulario2
 {
@@ -188,6 +305,25 @@ float: left;
   z-index:1;
 }
 
+.Formulario3
+{
+  
+  align-content: center;
+  align-self: auto;
+  background-color: aliceblue;
+  position:relative;
+  font-family: 'Roboto', sans-serif;
+  align-content: center;
+  align-items: flex-start;
+  display:block;
+  margin-bottom:80px;
+  width:630px;
+  height:900px;
+  border-radius:20px;
+  overflow:hidden;
+  z-index:1;
+}
+
 input#form
 {
   padding:10px;
@@ -197,9 +333,31 @@ input#form
   border: 2px solid rgb(180, 180, 180);
   padding-left: 20px;
  font-size: 17px;
-  
-  
-  
+}
+button#btnControl
+{
+  font-size:20px;width:80px
+}
+input#form2
+{
+  padding:10px;
+  width:250px;
+  height:10px;
+  border-radius:20px;
+  border: 2px solid rgb(180, 180, 180);
+  padding-left: 20px;
+ font-size: 17px;  
+}
+input#formIoT
+{
+  padding:10px;
+  width:100px;
+  height:10px;
+  border-radius:20px;
+  border: 2px solid rgb(180, 180, 180);
+  padding-left: 20px;
+ 
+
 }
 
 div#LuzEncendido

@@ -12,6 +12,10 @@ import FormInterruVar from './components/FormInterruVar'
 import FormCorVar from './components/FormCorVar';
 import ModInt from './components/ModInt';
 import ModCor from './components/ModCor';
+import FormDisp from './components/FormDisp';
+import FormLecIR from './components/FormLecIR';
+import FormControl from './components/FormControl';
+import ModControl from './components/ModControl';
  
 
 
@@ -20,6 +24,9 @@ const Routes = () => {
 
     <Switch>
         <Route exact path='/' component ={Home} />
+        <Route  path='/formDisp' component ={FormDisp} />
+        <Route  path='/formLect' component ={FormLecIR} />
+        <Route  path='/formControl/:id' component ={FormControl} />
         <Route  path='/form' component ={FormCuarto} />
         <Route  path='/formInt' component ={FormInterruptor} />
         <Route  path='/formCor' component ={FormCortina} />
@@ -31,6 +38,8 @@ const Routes = () => {
         <Route path='/formC/:date' component={FormCorVar}/>
         <Route  path="/Cuarto/:date/ModLuz/:date2" component={ModInt} />
         <Route  path="/Cuarto/:date/ModCor/:date2" component={ModCor} />
+        <Route  path="/Cuarto/:date/ModControl/:date2" component={ModControl} />
+        
     </Switch>
     )
 
