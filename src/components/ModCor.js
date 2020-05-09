@@ -205,7 +205,14 @@ handleSubmit = event => {
             { this.state.Cortina !=undefined && <option name="PinSensor1" value = "">{this.state.Cortina.PinSensor1}</option>}
                 {
               PinLibreSen1 && PinLibreSen1.length && PinLibreSen1.map((p,index) => {
-                 return (<option key={index} name="PinSensor1"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                 if (this.state.Dispositivo == "IoT"){
+                                if (index <(PinLibreSen1.length/2) ){
+                                  return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                                }
+                            }
+                            else{
+                              return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                            }
                 })
                 }
           
@@ -219,7 +226,14 @@ handleSubmit = event => {
             { this.state.Cortina !=undefined && <option name="PinSensor2" value = "">{this.state.Cortina.PinSensor2}</option>}
                 {
               PinLibreSen1 && PinLibreSen1.length && PinLibreSen1.map((p,index) => {
-                 return (<option key={index} name="PinSensor2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                if (this.state.Dispositivo == "IoT"){
+                  if (index >=(PinLibreSen1.length/2) ){
+                    return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                  }
+              }
+              else{
+                return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+              }
                 })
                 }
           

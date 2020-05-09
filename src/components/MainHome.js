@@ -23,7 +23,7 @@ this.state={
     mod:false,
     Casa:0,
     IdCasa:1,IdRasp:1,Conf:false,IoT:0,CantPWM:0,CantLuz:0,NombreCasa:"",
-    P1:"",P2:"",P3:"",P4:"",P5:"",P6:"",P7:"",P8:"",P9:"",
+    P1:"",P2:"",P3:"",P4:"",P5:"",P6:"",P7:"",P8:"",P9:"",P10:"",P11:"",L1:"",L2:"",
     err1:0,err2:0,err3:0,
     Rasps:undefined,
     Nodes:undefined,
@@ -288,7 +288,7 @@ defIoT(e)
 {
     var val =e.target.value
     var nam = e.target.name
-    if (val != this.state.P1 && val != this.state.P2 && val != this.state.P3 && val != this.state.P4 && val != this.state.P5 && val != this.state.P6 && val != this.state.P7 && val != this.state.P8 && val != this.state.P9 && val != 3 && val !=2)
+    if (val != this.state.P1 && val != this.state.P2 && val != this.state.P3 && val != this.state.P4 && val != this.state.P5 && val != this.state.P6 && val != this.state.P7 && val != this.state.P8 && val != this.state.P9  && val != this.state.P10  && val != this.state.P11 && val != 3 && val !=2)
     {
         console.log ("seteando el",e.target.name , " con el valor:",e.target.value )
         this.setState({
@@ -300,13 +300,13 @@ defIoT(e)
                 err1:0
               });
         }
-        if ((nam == "P4" || nam == "P5" || nam == "P6") ){
+        if ((nam == "P4" || nam == "P5" || nam == "P6"|| nam == "P7" || nam == "L1") ){
             this.setState({
                 err2:0
               });
         }
         
-        if ((nam == "P7" || nam == "P8" || nam == "P9" )){
+        if ((nam == "P8" || nam == "P9" || nam == "P10"|| nam == "P11" || nam == "L2" )){
             this.setState({
                 err1:0
               });
@@ -316,14 +316,14 @@ defIoT(e)
     }
     else 
     {
-        if (this.state.P4=="" && this.state.P5==""  && this.state.P6 =="" )
+        if (this.state.P4=="" && this.state.P5==""  && this.state.P6 =="" && this.state.P7==""  && this.state.L1 =="" )
         {
             this.setState({
                 err2:0
                 
               });
         }
-        if (this.state.P7=="" && this.state.P8==""  && this.state.P9 =="" )
+        if (this.state.P10=="" && this.state.P8==""  && this.state.P9 ==""&& this.state.P11==""  && this.state.L1 =="" )
         {
             this.setState({
                 err3:0
@@ -337,12 +337,12 @@ defIoT(e)
                 
               });
         }
-        if (nam == "P4" || nam == "P5" || nam == "P6" ){
+        if (nam == "P4" || nam == "P5" || nam == "P6"|| nam == "P7" || nam == "L1" ){
             this.setState({
                 err2:1, IoT:0,[e.target.name]:""
               });
         }
-        if (nam == "P7" || nam == "P8" || nam == "P9" ){
+        if (nam == "P10" || nam == "P8" || nam == "P9"|| nam == "P11" || nam == "L2" ){
             this.setState({
                 err1:1, IoT:0,[e.target.name]:""
               });
@@ -356,19 +356,19 @@ defIoT(e)
     var IoTs
     if (this.state.err1 == 0 && this.state.err2==0 && this.state.err3 ==0 )
     {
-        if (this.state.P1 != "" && this.state.P2 != "" && this.state.P3 !="")
+        if (this.state.P1 != "" && this.state.P2 != "" && this.state.P3 !="" )
           {
-              if (this.state.P4 != "" && this.state.P5 != "" && this.state.P6 !="")
+              if (this.state.P4 != "" && this.state.P5 != "" && this.state.P6 !="" && this.state.P7 !="" && this.state.L1 !="")
               {
-                if (this.state.P7 != "" && this.state.P8 != "" && this.state.P9 !="")
+                if (this.state.P10 != "" && this.state.P8 != "" && this.state.P9 !="" && this.state.P11 != "" && this.state.PL2 != "")
                 {
                     
-                        IoTs=[parseInt(this.state.P1),parseInt(this.state.P2),parseInt(this.state.P3),parseInt(this.state.P4),parseInt(this.state.P5),parseInt(this.state.P6),parseInt(this.state.P7),parseInt(this.state.P8),parseInt(this.state.P9)]
+                        IoTs=[parseInt(this.state.P1),parseInt(this.state.P2),parseInt(this.state.P3),parseInt(this.state.P4),parseInt(this.state.P5),parseInt(this.state.P6),parseInt(this.state.P7),parseInt(this.state.L1),parseInt(this.state.P8),parseInt(this.state.P9),parseInt(this.state.P10),parseInt(this.state.P11),parseInt(this.state.L2)]
                       
                 }
                 else{
                    
-                    IoTs=[parseInt(this.state.P1),parseInt(this.state.P2),parseInt(this.state.P3),parseInt(this.state.P4),parseInt(this.state.P5),parseInt(this.state.P6)]
+                    IoTs=[parseInt(this.state.P1),parseInt(this.state.P2),parseInt(this.state.P3),parseInt(this.state.P4),parseInt(this.state.P5),parseInt(this.state.P6),parseInt(this.state.P7),parseInt(this.state.L1)]
                    
                 }
               }
@@ -385,7 +385,7 @@ defIoT(e)
               
           }
     }
-    var str="El modulo IoT es :" + IoTs + " y la cantidad de luces : "+this.state.CantLuz +" PWM: "+this.state.CantPWM
+    var str="El modulo IoT es :" + IoTs  +"Cantidad de pines" +IoTs.length + " y la cantidad de luces : "+this.state.CantLuz +" PWM: "+this.state.CantPWM
     if (window.confirm(str)){
     const Casa = {
       IdCasa: this.state.IdCasa,
@@ -650,7 +650,7 @@ render(){
             <option name="CantLuz" value = "24">24</option>
             <option name="CantLuz" value = "32">32</option>
             <option name="CantLuz" value = "40">40</option>
-            <option name="CantLuz" value = "48">48</option>
+            <option name="CantLuz" value = "48">48</option> 
             </select>
            </div>
             <div className="col">
@@ -666,20 +666,28 @@ render(){
                     <h4>Pines IoT</h4> <h5>minimamente elegir 3  a excepcion del pin 2 y 3 </h5>
             </div>
             <div className="col">
-                    <input id="formIoT"   min="0" placeholder="Pin 1 IoT" type="number" value={this.P1} name="P1" onChange={this.defIoT.bind(this)} />
+                        <div><span style ={{fontSize:"15px"}}>Shift Reg</span></div>
+                    <input id="formIoT"   min="0" placeholder="Pin 1 IoT " type="number" value={this.P1} name="P1" onChange={this.defIoT.bind(this)} />
                     <input id="formIoT"   min="0" placeholder="Pin 2 IoT" type="number" value={this.P2} name="P2" onChange={this.defIoT.bind(this)} />
                     <input id="formIoT"   min="0" placeholder="Pin 3 IoT" type="number" value={this.P3} name="P3" onChange={this.defIoT.bind(this)} />
+                    
                     {E1}
                     </div>
              <div className="col">   
+                    <div><span style ={{fontSize:"15px"}}>Lectores 1</span></div>
                     <input id="formIoT" min="0" placeholder="Pin 4 IoT" type="number" value={this.P4} name="P4" onChange={this.defIoT.bind(this)} />
                     <input id="formIoT" min="0" placeholder="Pin 5 IoT" type="number" value={this.P5} name="P5" onChange={this.defIoT.bind(this)} />
                     <input id="formIoT" min="0" placeholder="Pin 6 IoT" type="number" value={this.P6} name="P6" onChange={this.defIoT.bind(this)} />
+                    <input id="formIoT"   min="0" placeholder="Pin 7 IoT" type="number" value={this.P7} name="P7" onChange={this.defIoT.bind(this)} />
+                    <input id="formIoT"   min="0" placeholder="Lec 1 IoT" type="number" value={this.L1} name="L1" onChange={this.defIoT.bind(this)} />
                     {E2}</div>
              <div className="col">   
-                    <input id="formIoT" min="0" placeholder="Pin 7 IoT" type="number" value={this.P7} name="P7" onChange={this.defIoT.bind(this)} />
+                    <div><span style ={{fontSize:"15px"}}>Lectores 2</span></div>
                     <input id="formIoT" min="0" placeholder="Pin 8 IoT" type="number" value={this.P8} name="P8" onChange={this.defIoT.bind(this)} />
                     <input id="formIoT" min="0" placeholder="Pin 9 IoT" type="number" value={this.P9} name="P9" onChange={this.defIoT.bind(this)} />
+                    <input id="formIoT" min="0" placeholder="Pin 10 IoT" type="number" value={this.P10} name="P10" onChange={this.defIoT.bind(this)} />
+                    <input id="formIoT"   min="0" placeholder="Pin 11 IoT" type="number" value={this.P11} name="P11" onChange={this.defIoT.bind(this)} />
+                    <input id="formIoT"   min="0" placeholder="Lec 2 IoT" type="number" value={this.L2} name="L2" onChange={this.defIoT.bind(this)} />
                     {E3}</div>
         </div>
         </div>

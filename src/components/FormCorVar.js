@@ -303,7 +303,14 @@ Form=<div>
                             
                             {
                             PinsSenLibres && PinsSenLibres.length && PinsSenLibres.map((p,index) => {
-                    return (<option key={index} name="PinSen1"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                              if (this.state.Dispositivo == "IoT"){
+                                if (index <(PinsSenLibres.length/2) ){
+                                  return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                                }
+                            }
+                            else{
+                              return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                            }
                     })
                     }
 
@@ -316,7 +323,15 @@ Form=<div>
                             
                             {
                             PinsSenLibres && PinsSenLibres.length && PinsSenLibres.map((p,index) => {
-                    return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                              if (this.state.Dispositivo == "IoT"){
+                                  if (index >=(PinsSenLibres.length/2) ){
+                                    return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                                  }
+                              }
+                              else{
+                                return (<option key={index} name="PinSen2"  value={p}  onChange={this.onChange.bind(this)} >{p}</option>)
+                              }
+                    
                     })
                     }
 
