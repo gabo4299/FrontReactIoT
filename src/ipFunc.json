@@ -1,13 +1,14 @@
 {
-    "ip":"http://localhost:5000",
-    "ipapi":"http://localhost:5000/API",
-    "NroPinesInt":16,
-    "NroPinesCor":16,
-    "NroPinesSen1":16,
-    "NroPinesSen2":16,
-    
-    "ip2":"http://192.168.1.214:5000",
-    "ipapi2":"http://192.168.1.214:5000/API"
+    "ip":"http://192.168.1.231:5000",
+    "ipapi":"http://192.168.1.231:5000/API",
+
+    "ipDEBUG":"http://localhost:5000",
+    "ipapiDEBUG":"http://localhost:5000/API",
+    "ipPC":"http://192.168.1.214:5000",
+    "ipapiPC":"http://192.168.1.214:5000/API",
+
+    "ipRasp2":"http://192.168.1.231:5000",
+    "ipapiRasp2":"http://192.168.1.231:5000/API"
     
 }
 
