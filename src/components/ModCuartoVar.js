@@ -110,7 +110,7 @@ render(){
           Modificar  Cuarto
         </h2>
     
-           <input  id = "form" placeholder="ID Cuarto" type="text" value={this.state.idcuarto} name="idcuarto" onChange={this.onChange.bind(this)} />
+           
            </div>
            <div id="separador">
 
