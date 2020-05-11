@@ -325,7 +325,7 @@ class FormDisp extends React.Component{
       }
       if (this.state.tipo=="Esp32")
       {
-        imgs=<img src={process.env.PUBLIC_URL + "/Images/Esp32.jpg"} alt='Escudo' width='450'/>
+        imgs=<img src={process.env.PUBLIC_URL + "/Images/Esp32.png"} alt='Escudo' width='450'/>
         DivIoT= <div></div>
       }
       Form =   <header className="App-header">
