@@ -139,7 +139,7 @@ defcuarto= async() =>{
               }
             }
             
-              console.log("Luces finally", this.state.Luces);
+              //console.log("Luces finally", this.state.Luces);
               
               this.setState({ cantLuces:Luces.length });
     
@@ -172,6 +172,9 @@ defcuarto= async() =>{
                  }
                 
                 }
+                //AQUI MANDAMOS LEER SENSORES ! DORECTO CON ID CUARTO ASI MANDA EL ARRAY 
+                socket.emit("Estado_Cortinas_Cuarto",response.data.IdCuarto,response.data.IdCortina)
+
               }
                 corcopia=Cortinas;
               // if (this.state.Cortinas.length =! undefined){
@@ -289,7 +292,10 @@ componentDidMount(){
   })
 
 }
-
+componentWillUnmount(){
+  const socket = SocketIOClient(ipFunc["ip"]);
+  socket.emit("Stop_Lec",this.state.idcuarto)
+}
 
 click(e){
   console.log("Cuarto:",this.state.Cuarto);
