@@ -66,6 +66,7 @@ componentDidMount() {
             })
   }
     
+ 
   onChange(e){
     let  val = e.target.value
     let  nam = e.target.name
