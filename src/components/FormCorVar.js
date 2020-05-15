@@ -153,7 +153,7 @@ if (e.target.name == "Pinmotor" ||e.target.name == "Nombre"||e.target.name == "M
         this.setState({
             [e.target.name]:e.target.value
         })
-        let linkPins=ipFunc["ipapi"]+"/CPU/"+this.state.Dispositivo+"/"+e.target.value+"/PinFree/Luz"
+        let linkPins=ipFunc["ipapi"]+"/CPU/"+this.state.Dispositivo+"/"+e.target.value+"/PinFree/PWM"
         axios.get(linkPins)
         .then (response => {
             
