@@ -173,7 +173,7 @@ defcuarto= async() =>{
                 
                 }
                 //AQUI MANDAMOS LEER SENSORES ! DORECTO CON ID CUARTO ASI MANDA EL ARRAY 
-                socket.emit("Estado_Cortinas_Cuarto",(response.data.IdCuarto,response.data.IdCortina))
+                socket.emit("Estado_Cortinas_Cuarto",response.data.IdCuarto,response.data.IdCortina)
 
               }
                 corcopia=Cortinas;
@@ -292,7 +292,10 @@ componentDidMount(){
   })
 
 }
-
+componentWillUnmount(){
+  const socket = SocketIOClient(ipFunc["ip"]);
+  socket.emit("Stop_Lec",this.state.idcuarto)
+}
 
 click(e){
   console.log("Cuarto:",this.state.Cuarto);

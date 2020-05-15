@@ -204,7 +204,7 @@ if (e.target.name == "Pinmotor" ||e.target.name == "Nombre"||e.target.name == "M
         };
     
         //AYUDA CON EL LUGAR DODNE SE PONDRA EL INTERRUPTOR 
-        if (cor.Pinmotor == "" || cor.PinSensor1 == "" || cor.PinSensor2 == ""  || cor.Pinmotor ==cor.PinSensor1 ||cor.Pinmotor ==cor.PinSensor2 || cor.PinSensor2==cor.PinSensor1 )
+        if (cor.Pinmotor == "" || cor.PinSensor1 == "" || cor.PinSensor2 == ""   || cor.PinSensor2==cor.PinSensor1 )
         {
           
           alert("error de pines revisar porfavor")
