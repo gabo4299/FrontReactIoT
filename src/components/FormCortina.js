@@ -61,6 +61,7 @@ componentDidMount() {
             {
               PinLibreMotor.push({PinLibre: response.data[i]})
             }      }
+            console.log("pines libres motor : ",PinLibreMotor)
           
           this.setState({ PinLibreMotor });
         })
