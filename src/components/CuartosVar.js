@@ -246,11 +246,12 @@ defcuarto= async() =>{
                   for (let i =0 ; i <Cortinas.length; i++){
                     
                     let ids = Cortinas[i].IdCortina;
+                    console.log("Socketeando:","id del sstema : ", ids , "ID: ", id);
                     if(ids == id){
 
                       console.log("Socketeando:","id : ", id , "Estado: ", Estado);
          
-                      corcopia[i].Estado=Estado;     
+                      Cortinas[i].Estado=Estado;     
                                 
                     }
                   }
