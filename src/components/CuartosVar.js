@@ -1,5 +1,5 @@
 
-import React  from 'react';
+import React,{component}  from 'react';
 import axios from 'axios';
  import cors from 'cors';
 
@@ -11,7 +11,7 @@ import '../App.css';
 import Axios from 'axios';
 
 
-
+import { Prompt,Link } from 'react-router-dom'
 
 
 class CuartosVar extends React.Component{
@@ -52,6 +52,8 @@ this.time=undefined
     
 }
 on(Id,Estado,Val){
+  const socket = SocketIOClient(ipFunc["ip"]);
+  socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
   if(Estado=="Abierto" && Val!="Arriba" || Estado=="Cerrado" && Val!="Abajo" || Estado=="Semi"){
       this.repeat(Id,Estado,Val)
   }
@@ -292,10 +294,23 @@ componentDidMount(){
   })
 
 }
+DejarDeleerCortinas(){
+  const socket = SocketIOClient(ipFunc["ip"]);
+  if (this.props.match.params.date != undefined)
+  {
+    let id
+    id=this.props.match.params.date
+    socket.emit("Stop_Lec",id)
+  }
+  
+}
+
+
 componentWillUnmount(){
   const socket = SocketIOClient(ipFunc["ip"]);
   socket.emit("Stop_Lec",this.state.idcuarto)
 }
+
 
 click(e){
   console.log("Cuarto:",this.state.Cuarto);
@@ -319,6 +334,8 @@ CambioCortina(Id,Estado,Val,param){
           Estado:undefined,
           EstadoAntiguo:undefined,
           Accion:undefined};
+  const socket = SocketIOClient(ipFunc["ip"]);
+  socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
   let lin = ipFunc["ip"]+"/API/Cuarto/"+this.state.idcuarto+"/Cortina/"+Id+"/Estado";
 
   if (Estado=="Abierto" ){
@@ -1237,10 +1254,14 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
 
 
 
-      return(
+      return( 
         <div >
              
-     
+          <Prompt 
+          message={()=>{
+            const socket = SocketIOClient(ipFunc["ip"]);
+            socket.emit("Stop_Lec",this.state.idcuarto)
+          }}/>
    
         {this.state.Existe=="" && this.state.ComprobarContra==""&&
 <div id="CuartoMenu" >
@@ -1254,10 +1275,10 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
                     <div className="bg-dark p-4">
                         <h4 className="text-white">Menu</h4>
                             
-                       <a href={linkmodificacionCuarto}> <button type="button" className="btn btn-light">Modificar  Cuarto</button>  </a>
-                            <a href={linkagregarluz}><button type="button" className="btn btn-dark"   >Agregar Luz</button></a>
-                            <a href={linkagregarcortina}><button type="button" className="btn btn-light">Agregar Cortina</button>  </a>
-                            <a href={linkagregarControl}><button type="button" className="btn btn-dark">Agregar Control</button>  </a>
+                       <Link to={linkmodificacionCuarto}> <button type="button" className="btn btn-light" >Modificar  Cuarto</button>  </Link>
+                            <Link to={linkagregarluz}><button type="button" className="btn btn-dark"   >Agregar Luz</button></Link>
+                            <Link to={linkagregarcortina}><button type="button" className="btn btn-light">Agregar Cortina</button>  </Link>
+                            <Link to={linkagregarControl}><button type="button" className="btn btn-dark">Agregar Control</button>  </Link>
                             <button type="button" className="btn btn-light" onClick={this.ModifPress.bind(this)}>Modificar  dispositivos</button>
                     </div>
                 </div>
@@ -1268,7 +1289,7 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
                                </button>
 
                                </div>
-                               <a href="/main"><button type="button" className="btn btn-dark">Home </button></a>
+                               <Link to="/main"><button type="button" className="btn btn-dark">Home </button></Link>
                                
                                <img  className="Logo" src={process.env.PUBLIC_URL + '/Images/Escudo.png'} alt='Escudo' width='60'/>
                  </nav>
@@ -1368,6 +1389,8 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
       
         
         </div>
+
+        
       )
     }
   }

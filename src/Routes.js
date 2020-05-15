@@ -33,8 +33,8 @@ const Routes = () => {
         <Route  path='/formInt' component ={FormInterruptor} />
         <Route  path='/formCor' component ={FormCortina} />
         <Route  path='/Main' component ={MainHome} />
-        <Route exact path="/Cuarto/:date" component={CuartosVar}  />
-        {/* onLeave={socket.emit("Stop_Lec")}  en el route */}
+        <Route exact path="/Cuarto/:date" component={CuartosVar}   />
+        {/*   */}
         <Route path='/Prueba' component={Prueba}/>
         <Route path='/mod/:date' component={ModCuartosVar}/>
         <Route path='/formI/:date' component={FormInterruVar}/>
