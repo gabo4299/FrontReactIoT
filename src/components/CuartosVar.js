@@ -53,7 +53,7 @@ this.time=undefined
 }
 
 repeat(Id,Estado,Val){
-  this.time = setTimeout(this.repeat.bind(this,Id,Estado,Val),300)
+  this.time = setTimeout(this.repeat.bind(this,Id,Estado,Val),200)
   this.CambioCortina(Id,Estado,Val)
 }
 off(){
@@ -230,11 +230,7 @@ defcuarto= async() =>{
 
         socket.on("CortinaCambio",function(id,Estado){
                   
-<<<<<<< HEAD
-                  console.log("recibo el socekt");
-=======
                   console.log("Nuevo socket")
->>>>>>> 6af15fb47ede9489a6147d1d946010abcd99c469
                   for (let i =0 ; i <Cortinas.length; i++){
                     
                     let ids = Cortinas[i].IdCortina;
@@ -337,16 +333,16 @@ CambioCortina(Id,Estado,Val,param){
           Estado:undefined,
           EstadoAntiguo:undefined,
           Accion:undefined};
-  const socket = SocketIOClient(ipFunc["ip"]);
-  if (this.state.Cortinas != undefined){
+  //const socket = SocketIOClient(ipFunc["ip"]);
+ // if (this.state.Cortinas != undefined){
     let CortinasLOCAS=[]
-    for (let i = 0 ; i<this.state.Cortinas.length ; i ++)
-    {
-      CortinasLOCAS.push(this.state.Cortinas[i].IdCortina)
-    }
-    socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,CortinasLOCAS)          
-    console.log("Emitiendo con idcuarti : ",this.state.idcuarto)
-  }
+    //for (let i = 0 ; i<this.state.Cortinas.length ; i ++)
+    //{
+     // CortinasLOCAS.push(this.state.Cortinas[i].IdCortina)
+    //}
+//    socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,CortinasLOCAS)          
+  //  console.log("Emitiendo con idcuarti : ",this.state.idcuarto)
+  //}
   
   // socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
   let lin = ipFunc["ip"]+"/API/Cuarto/"+this.state.idcuarto+"/Cortina/"+Id+"/Estado";
@@ -441,6 +437,20 @@ CambioCortina(Id,Estado,Val,param){
     } 
   }
   
+}
+
+ForzarEmit()
+{
+const socket = SocketIOClient(ipFunc["ip"]);
+if (this.state.Cortinas != undefined){
+    let CortinasLOCAS=[]
+    for (let i = 0 ; i<this.state.Cortinas.length ; i ++)
+    {
+      CortinasLOCAS.push(this.state.Cortinas[i].IdCortina)
+    }
+    socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,CortinasLOCAS)          
+    console.log("Emitiendo con idcuarti : ",this.state.idcuarto)
+  }
 }
 
 ModifPress(e){
@@ -868,7 +878,7 @@ if (this.state.IdControlActivo != undefined)
               <div> <button className="btn btn-secondary" onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,botonesNames[pos])} value= {botonesNames[pos]}style={{fontSize:"20px",width:"80px"}}> {imagenBoton}</button><p>{botonesNames[pos]}</p></div> }
               { Apagarpapu==true   && 
               <div>
-                <button className="btn btn-danger" onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,botonesNames[pos])} value= {botonesNames[pos]} style={{fontSize:"20px",width:"80px"}}> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Escudo' width='30'/> </button><p>{botonesNames[pos]}</p> </div>}
+                <button className="btn btn-danger" onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,botonesNames[pos])} value= {"Off"} style={{fontSize:"20px",width:"80px"}}> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Escudo' width='30'/> </button><p>{botonesNames[pos]}</p> </div>}
               
                </div>)
             
@@ -893,12 +903,14 @@ if (this.state.IdControlActivo != undefined)
     else {
       // console.log("botones names",botonesNames , "y control es ",controlActivo.Codigos)
       BotonesControlSEL=[]
+      console.log("control activo.codigs es : ",controlActivo.Codigos)
       RowControl=(<div className="container" key="Conrolaso">
         <div className = "row justify-content-between">
           < div className="col-md-auto">
-            { controlActivo.Codigos["Apagar"] != undefined &&
+
+            { controlActivo.Codigos["Off"] != undefined &&
               <div>
-                <button  onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Apagar")} className="btn btn-danger" id="btnControl" value="Apagar"> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Off' width='30'/> </button> 
+                <button  onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Off")} className="btn btn-danger" id="btnControl" value="Off"> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Off' width='30'/> </button> 
                 <p style ={{display :this.state.Visibility}}>Apagar</p> 
                 </div>
             }
@@ -1183,7 +1195,7 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
       if (this.state.Cortinas[i].Estado == "Abierto"){
     
         auxCOR.push( <div className="row" key = {i}><div key = {i} id="CortinaAbierto" className="col-md-auto">  
-        <img   src={process.env.PUBLIC_URL + '/Images/CortinaAbierta.png'} alt='Cortina' width='150' />  </div> 
+        <img   src={process.env.PUBLIC_URL + '/Images/CortinaAbierta.png'} onClick={this.ForzarEmit.bind(this)} alt='Cortina' width='150' />  </div> 
         <div className="col-md-auto"> 
         <div className='container'>
         <div className='col'> <button className="button2"  onMouseDown={this.on.bind(this,ids,estado,"Arriba")} onMouseUp={this.off.bind(this)}>🢁</button> </div>
@@ -1197,7 +1209,7 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
       }
       if (this.state.Cortinas[i].Estado == "Semi"){
         auxCOR.push( <div className="row" key = {i}> <div key = {i} className="col-md-auto" id="CortinaSemi">
-           <img   src={process.env.PUBLIC_URL + '/Images/CortinaSemi.png'} alt='Cortina' width='150' />  </div> 
+           <img   src={process.env.PUBLIC_URL + '/Images/CortinaSemi.png'} onClick={this.ForzarEmit.bind(this)} alt='Cortina' width='150' />  </div> 
         <div className="col-md-auto"> 
         <div className='container'>
         <div className='col'> <button className="button2"  onMouseDown={this.on.bind(this,ids,estado,"Arriba")} onMouseUp={this.off.bind(this)}>🢁</button> </div>
@@ -1233,7 +1245,7 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
  
         auxCOR.push(<div className="row" key = {i}> <div key = {i} id="CortinaCerrado" className="col-md-auto">  
         
-        <img   src={process.env.PUBLIC_URL + '/Images/CortinaCerrada.png'} alt='Cortina' width='150' />  </div> 
+        <img   src={process.env.PUBLIC_URL + '/Images/CortinaCerrada.png'} onClick={this.ForzarEmit.bind(this)} alt='Cortina' width='150' />  </div> 
         <div className="col-md-auto"> 
         <div className='container'>
         <div className='col'> <button className="button2"  onMouseDown={this.on.bind(this,ids,estado,"Arriba")} onMouseUp={this.off.bind(this)}>🢁</button> </div>
