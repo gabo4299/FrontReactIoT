@@ -51,19 +51,7 @@ this.time=undefined
 // this.repeat = this.repeat.bind(this)
     
 }
-on(Id,Estado,Val){
-  const socket = SocketIOClient(ipFunc["ip"]);
-  socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
-  if(Estado=="Abierto" && Val!="Arriba" || Estado=="Cerrado" && Val!="Abajo" || Estado=="Semi"){
-      this.repeat(Id,Estado,Val)
-  }
-  else{
-    var msg="Ya esta "+Estado;
 
-    alert(msg);
-  }
-  
-}
 repeat(Id,Estado,Val){
   this.time = setTimeout(this.repeat.bind(this,Id,Estado,Val),300)
   this.CambioCortina(Id,Estado,Val)
@@ -242,7 +230,11 @@ defcuarto= async() =>{
 
         socket.on("CortinaCambio",function(id,Estado){
                   
+<<<<<<< HEAD
                   console.log("recibo el socekt");
+=======
+                  console.log("Nuevo socket")
+>>>>>>> 6af15fb47ede9489a6147d1d946010abcd99c469
                   for (let i =0 ; i <Cortinas.length; i++){
                     
                     let ids = Cortinas[i].IdCortina;
@@ -284,7 +276,20 @@ defcuarto= async() =>{
   
   
 }
+on(Id,Estado,Val){
+  const socket = SocketIOClient(ipFunc["ip"]);
 
+  
+  if(Estado=="Abierto" && Val!="Arriba" || Estado=="Cerrado" && Val!="Abajo" || Estado=="Semi"){
+      this.repeat(Id,Estado,Val)
+  }
+  else{
+    var msg="Ya esta "+Estado;
+
+    alert(msg);
+  }
+  
+}
 componentDidMount(){
   
   this.defcuarto(); 
@@ -307,10 +312,7 @@ DejarDeleerCortinas(){
 }
 
 
-componentWillUnmount(){
-  const socket = SocketIOClient(ipFunc["ip"]);
-  socket.emit("Stop_Lec",this.state.idcuarto)
-}
+
 
 
 click(e){
@@ -336,7 +338,17 @@ CambioCortina(Id,Estado,Val,param){
           EstadoAntiguo:undefined,
           Accion:undefined};
   const socket = SocketIOClient(ipFunc["ip"]);
-  socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
+  if (this.state.Cortinas != undefined){
+    let CortinasLOCAS=[]
+    for (let i = 0 ; i<this.state.Cortinas.length ; i ++)
+    {
+      CortinasLOCAS.push(this.state.Cortinas[i].IdCortina)
+    }
+    socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,CortinasLOCAS)          
+    console.log("Emitiendo con idcuarti : ",this.state.idcuarto)
+  }
+  
+  // socket.emit("Estado_Cortinas_Cuarto",this.state.idcuarto,this.state.Cortinas.IdCortina)          
   let lin = ipFunc["ip"]+"/API/Cuarto/"+this.state.idcuarto+"/Cortina/"+Id+"/Estado";
 
   if (Estado=="Abierto" ){
