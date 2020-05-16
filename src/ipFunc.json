@@ -1,6 +1,6 @@
 {
-    "ip":"http://192.168.1.214:5000",
-    "ipapi":"http://192.168.1.214:5000/API",
+    "ip":"http://192.168.1.231:5000",
+    "ipapi":"http://192.168.1.231:5000/API",
 
     "ipDEBUG":"http://localhost:5000",
     "ipapiDEBUG":"http://localhost:5000/API",

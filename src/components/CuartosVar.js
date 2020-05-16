@@ -242,7 +242,7 @@ defcuarto= async() =>{
 
         socket.on("CortinaCambio",function(id,Estado){
                   
-                  
+                  console.log("recibo el socekt");
                   for (let i =0 ; i <Cortinas.length; i++){
                     
                     let ids = Cortinas[i].IdCortina;
@@ -251,7 +251,7 @@ defcuarto= async() =>{
 
                       console.log("Socketeando:","id : ", id , "Estado: ", Estado);
          
-                      Cortinas[i].Estado=Estado;     
+                      corcopia[i].Estado=Estado;     
                                 
                     }
                   }
