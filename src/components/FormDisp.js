@@ -1,7 +1,7 @@
 
 import React  from 'react';
 import axios from 'axios';
-import cors from 'cors';
+
  import Switch from "react-switch";
 
 import SocketIOClient from 'socket.io-client'

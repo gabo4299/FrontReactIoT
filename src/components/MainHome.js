@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import Switch from "react-switch";
 import axios from 'axios';
-import cors from 'cors';
+
 import ipFunc from '../ipFunc.json'
 import {
     BrowserRouter as Router,

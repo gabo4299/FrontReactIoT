@@ -16,9 +16,8 @@ import FormDisp from './components/FormDisp';
 import FormLecIR from './components/FormLecIR';
 import FormControl from './components/FormControl';
 import ModControl from './components/ModControl';
-import SocketIOClient from 'socket.io-client'
-import ipFunc from './ipFunc.json'
-const socket = SocketIOClient(ipFunc["ip"]);
+
+
 
 
 const Routes = () => {
@@ -34,7 +33,7 @@ const Routes = () => {
         <Route  path='/formCor' component ={FormCortina} />
         <Route  path='/Main' component ={MainHome} />
         <Route exact path="/Cuarto/:date" component={CuartosVar}   />
-        {/*   */}
+        
         <Route path='/Prueba' component={Prueba}/>
         <Route path='/mod/:date' component={ModCuartosVar}/>
         <Route path='/formI/:date' component={FormInterruVar}/>

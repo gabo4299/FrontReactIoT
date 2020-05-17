@@ -1,14 +1,14 @@
 
 import React     from 'react';
 import axios from 'axios';
-import SocketIOClient from 'socket.io-client'
+
 import ipFunc from '../ipFunc.json';
 
 
 
 import '../App.css';
-import { CLIENT_RENEG_LIMIT } from 'tls';
-import { Socket } from 'dgram';
+//import { CLIENT_RENEG_LIMIT } from 'tls';
+//import { Socket } from 'dgram';
 
 
 class Prueba extends React.Component{

@@ -36,13 +36,7 @@ class ModCuartosVar extends React.Component {
       handleSubmit = event => {
         event.preventDefault();
     
-        const Cuarto = {
-          idcuarto: this.state.idcuarto,
-          nombre: this.state.nombre,
-          fondo: this.state.fondo,
-          contrasenha: this.state.contrasenha
-    
-        };
+
     let lin=ipFunc["ipapi"]+'/Cuarto/'+this.state.idcuarto+'/mod'
         const c = new FormData();
         c.append('fondo',this.state.fondo)
@@ -66,7 +60,7 @@ class ModCuartosVar extends React.Component {
       }
 dose(e){
   console.log("data",e.target.files[0])
-  if(e.target.files[0]!=undefined){
+  if(e.target.files[0] !== undefined){
   this.setState({fondo:e.target.files[0],
                   Seleccion:'Si'
 

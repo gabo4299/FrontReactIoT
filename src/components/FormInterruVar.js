@@ -1,6 +1,6 @@
 import React  from 'react';
 import axios from 'axios';
-import cors from 'cors';
+
 import Switch from "react-switch";
 import ipFunc from "../ipFunc.json"
 
@@ -50,7 +50,7 @@ this.switchchange = this.switchchange.bind(this);
         axios.get(linknewcuartos)
           .then(response => {
       
-             const  a=JSON.stringify(response.data);
+             
               console.log(response.data);
               axx.au=response.data;
              const b=JSON.stringify(axx.au.idcuarto);

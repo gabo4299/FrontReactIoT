@@ -1,14 +1,8 @@
 import React  from 'react';
 import axios from 'axios';
-import cors from 'cors';
- 
-
-import SocketIOClient from 'socket.io-client'
-import io from 'socket.io-client'
-
 import ipFunc from '../ipFunc.json';
 import '../App.css';
-import Axios from 'axios';
+
 
 class FormLecIR extends React.Component{
 

@@ -1,14 +1,14 @@
 
-import React,{component}  from 'react';
+import React  from 'react';
 import axios from 'axios';
- import cors from 'cors';
+ 
 
 import SocketIOClient from 'socket.io-client'
 import io from 'socket.io-client'
 
 import ipFunc from '../ipFunc.json';
 import '../App.css';
-import Axios from 'axios';
+
 
 
 import { Prompt,Link } from 'react-router-dom'
@@ -45,7 +45,9 @@ this.state={
       LecIR:undefined,
       ModControl:false,
       LecIRSELEC:"",
-      Visibility:"none"
+      Visibility:"none",
+      LectorIRmessage:undefined,
+      LeyendoCodigo:false
 }  
 this.time=undefined
 // this.repeat = this.repeat.bind(this)
@@ -266,6 +268,15 @@ defcuarto= async() =>{
        
                   _this.setState({Luces:luzcopia});
                   luzcopia=Luces;
+                  
+                });
+                socket.on("LecturaControlIR",function(Message){
+                  
+                  console.log("Nuevo socket")
+                  
+          
+                  _this.setState({LectorIRmessage:Message});
+                  
                   
                 });
 
@@ -551,6 +562,12 @@ CambioLuz(val,id,pos)
   }
   onChange(e)
   {
+    if (e.target.name== "LecIRSELEC")
+    {
+      this.setState({
+        LeyendoCodigo:true
+      })
+    }
     this.setState({
       [e.target.name]:e.target.value
     })
@@ -689,21 +706,36 @@ else{
 } 
 agregarCodigo(id)
 {
+  // esuhas el socket y cambias el estado
+  
   if (this.state.LecIRSELEC != "")
   {
     var s =window.prompt("Ingrese un nombre para el Futuro Codigo");
     if (s == null || s == "") {
      
       alert("Ingrese Nombre para leer el codigo")
+      let LectorIRmessage
+      LectorIRmessage={'Mensaje':'Seleccione un Nombre priemro'}
+      this.setState({
+        LeyendoCodigo:false,
+        LectorIRmessage
+      })
     } else {
+      
+
+      this.setState({
+        LeyendoCodigo:true
+      })
+
       var mes = "Leyendo codigo con , el futuro nombre: "+s+" y con el lector:"+this.state.LecIRSELEC
       alert(mes)
       let lin = ipFunc["ipapi"]+"/ControlIR/"+id+"/LecIR/"+this.state.LecIRSELEC+"/"+s
       axios.get(lin)
-      .then(response=>
-        {
-          alert(response.data)
-        })
+      // .then(response=>
+      //   {
+      //     alert(response.data)
+      //     // socket emit creo
+      //   })
     }
   }
   else{
@@ -904,77 +936,77 @@ if (this.state.IdControlActivo != undefined)
       // console.log("botones names",botonesNames , "y control es ",controlActivo.Codigos)
       BotonesControlSEL=[]
       console.log("control activo.codigs es : ",controlActivo.Codigos)
-      RowControl=(<div className="container" key="Conrolaso">
-        <div className = "row justify-content-between">
-          < div className="col-md-auto">
+      RowControl=(<div className="container" style={{paddingLeft:"0px",paddingRight:"0px"}} key="Conrolaso">
+        <div className = "row justify-content-center">
+          
 
             { controlActivo.Codigos["Off"] != undefined &&
-              <div>
+              <div className="col-auto">
                 <button  onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Off")} className="btn btn-danger" id="btnControl" value="Off"> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Off' width='30'/> </button> 
                 <p style ={{display :this.state.Visibility}}>Apagar</p> 
                 </div>
             }
-          </div>
-          <div className="col-md-autp"> <button className="btn btn-warning" onClick={this.VerTxT.bind(this)}>Texto</button></div>
-          < div className="col-md-auto">
+          
+          <div className="col-auto"> <button className="btn btn-warning" onClick={this.VerTxT.bind(this)}>Texto</button></div>
+          
           { controlActivo.Codigos["Source"] != undefined &&
-              <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Source")} className="btn btn-secondary" id="btnControl" value="Soure"> <img src={process.env.PUBLIC_URL + '/Images/btn-source.png'} alt='Source' width='30'/> </button> <p style ={{display :this.state.Visibility}}>Source</p> </div>
+              <div className="col-auto"><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Source")} className="btn btn-secondary" id="btnControl" value="Soure"> <img src={process.env.PUBLIC_URL + '/Images/btn-source.png'} alt='Source' width='30'/> </button> <p style ={{display :this.state.Visibility}}>Source</p> </div>
             }
-          </div>
+          
         </div>
         <div className = "row justify-content-center">
-          <div className ="col-md-auto" >
+          <div className ="col-auto" >
           { controlActivo.Codigos["VolUp"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"VolUp")} className="btn btn-light"  id="btnControl" value="VolUp"> <img src={process.env.PUBLIC_URL + '/Images/btn-volup.png'} alt='Vup' width='30'/> </button> <p style ={{display :this.state.Visibility}} className="App">V+</p> </div>
             }
           </div>
-          <div className ="col-md-auto">
+          <div className ="col-auto">
           { controlActivo.Codigos["ChUp"] != undefined &&
               <div><button  onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"ChUp")} className="btn btn-light" id="btnControl" value="ChUp"> <img src={process.env.PUBLIC_URL + '/Images/btn-chup.png'} alt='CHup' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>CH+</p> </div>
             }
           </div>
           <div className="w-100"></div>
-          <div className ="col-md-auto">
+          <div className ="col-auto">
           { controlActivo.Codigos["VolDown"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"VolDown")} className="btn btn-light" id="btnControl" value="VolDown"> <img src={process.env.PUBLIC_URL + '/Images/btn-voldown.png'} alt='VDown' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>V-</p> </div>
             }
           </div>
-          <div className ="col-md-auto">
+          <div className ="col-auto">
           { controlActivo.Codigos["ChDown"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"ChDown")} className="btn btn-light" id="btnControl" value="ChDown"> <img src={process.env.PUBLIC_URL + '/Images/btn-chdown.png'} alt='CHDown' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>CH-</p> </div>
             }
           </div>
           <div className="w-100"></div>
-          <div className ="col-md-auto">
+          <div className ="col-auto">
           { controlActivo.Codigos["Mute"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Mute")} className="btn btn-secondary" id="btnControl" value="Mute"> <img src={process.env.PUBLIC_URL + '/Images/btn-mute.png'} alt='Mute' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>V-</p> </div>
             }
           </div>
-          <div className ="col-md-auto">
+          <div className ="col-auto">
           { controlActivo.Codigos["PreChanel"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"PreChanel")} className="btn btn-secondary" id="btnControl" value="PreChanel" style={{fontSize:"15px",height:"48px"}}> PRE-CH </button> <p className="App" style ={{display :this.state.Visibility}}>Pre Ch</p> </div>
             }
           </div>
         </div>
         <div className = "row justify-content-center">
-          <div className ="col-md-auto" >
+          <div className ="col-auto" >
           { controlActivo.Codigos["Smart Hub"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,'Smart Hub')} className="btn btn-secondary"  id="btnControl" value="Smart Hub"> <img src={process.env.PUBLIC_URL + '/Images/btn-smart.png'} alt='Smart' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>SmartHub</p> </div>
             }
           </div>
-          <div className ="col-md-auto" >
+          <div className ="col-auto" >
           { controlActivo.Codigos["Menu"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Menu")} className="btn btn-secondary"  id="btnControl" value="Menu"> <img src={process.env.PUBLIC_URL + '/Images/btn-menu.png'} alt='menu' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Menu</p> </div>
             }
           </div>
-          <div className ="col-md-auto" >
+          <div className ="col-auto" >
           { controlActivo.Codigos["Return"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Return")} className="btn btn-secondary"  id="btnControl" value="Return"> <img src={process.env.PUBLIC_URL + '/Images/btn-return.png'} alt='return' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Return</p> </div>
             }
           </div>
         </div>
         <div className = "row justify-content-center">
-          <div className ="col-md-auto" >
+          <div className ="col-auto" >
           { controlActivo.Codigos["Up"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Up")} className="btn btn-light"  id="btnControl" value="Up"> <img className="rotate270" src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='up' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Up</p> </div>
             }
@@ -982,38 +1014,38 @@ if (this.state.IdControlActivo != undefined)
         
         </div>
         <div className = "row justify-content-center">
-          <div className ="col-md-auto" >
+          
           { controlActivo.Codigos["Left"] != undefined &&
-              <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Left")} className="btn btn-light"  id="btnControl" value="Left"> <img className="rotate180" src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Left' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Left</p> </div>
+              <div className ="col-auto" ><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Left")} className="btn btn-light"  id="btnControl" value="Left"> <img className="rotate180" src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Left' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Left</p> </div>
             }
-          </div>
-          <div className ="col-md-auto" >
+          
+          
           { controlActivo.Codigos["Ok"] != undefined &&
-              <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Ok")} className="btn btn-secondary"  id="btnControl" value="Ok"> OK </button> <p className="App" style ={{display :this.state.Visibility}}>Ok</p> </div>
+              <div className ="col-auto" ><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Ok")} className="btn btn-secondary"  id="btnControl" value="Ok"> OK </button> <p className="App" style ={{display :this.state.Visibility}}>Ok</p> </div>
             }
-          </div>
-          <div className ="col-md-auto" >
+          
+          
           { controlActivo.Codigos["Right"] != undefined &&
-              <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Right")} className="btn btn-light"  id="btnControl" value="Right"> <img  src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Right' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Right</p> </div>
+              <div className ="col-auto" ><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Right")} className="btn btn-light"  id="btnControl" value="Right"> <img  src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Right' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Right</p> </div>
             }
-          </div>
+          
         
         </div>
         <div className = "row justify-content-center">
-          <div className ="col-md-auto" >
+          
             { controlActivo.Codigos["Down"] != undefined &&
-              <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Down")} className="btn btn-light"  id="btnControl" value="Down"> <img className="rotate90" src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Down' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Down</p> </div>
+              <div className ="col-auto" ><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Down")} className="btn btn-light"  id="btnControl" value="Down"> <img className="rotate90" src={process.env.PUBLIC_URL + '/Images/btn-flecha.png'} alt='Down' width='30'/> </button> <p className="App" style ={{display :this.state.Visibility}}>Down</p> </div>
             }
-          </div>
+          
         
         </div>    
         <div className = "row justify-content-between">
-          < div className="col-md-auto">
+          < div className="col-auto">
             { controlActivo.Codigos["Tools"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Tools")} className="btn btn-secondary" id="btnControl" value="Tools"> <img src={process.env.PUBLIC_URL + '/Images/btn-tools.png'} alt='Tools' width='30'/> </button> <p style ={{display :this.state.Visibility}}>Tools</p> </div>
             }
           </div>
-          < div className="col-md-auto">
+          < div className="col-auto">
           { controlActivo.Codigos["Sleep"] != undefined &&
               <div><button onClick={this.EnviarCodigo.bind(this,controlActivo.IdControl,"Sleep")} className="btn btn-secondary" id="btnControl" value="Sleep"> <img src={process.env.PUBLIC_URL + '/Images/btn-sleep.png'} alt='Sleep' width='30'/> </button> <p style ={{display :this.state.Visibility}}>Sleep</p> </div>
             }
@@ -1049,14 +1081,14 @@ if (this.state.IdControlActivo != undefined)
 
 var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
 <div className="modal-dialog modal-dialog-centered"  role="document">
-  <div className="modal-content" style={{color:"black",borderRadius:"50px",backgroundColor:"#a7a4a4"}}>
+  <div className="modal-content" style={{color:"black",borderRadius:"50px",backgroundColor:"#a7a4a4",paddingLeft:"0px",paddingRight:"0px"}}>
     
     <div style={{alignContent:"flex-end",marginRight:"24px",marginTop:"10px"}}>
       <button   onClick={this.seleccionarContronId.bind(this,undefined,false)} type="button" className="close" data-dismiss="modal" aria-label="Close"  >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div className="modal-body">
+    <div className="modal-body" style={{paddingLeft:"0px",paddingRight:"0px"}}>
       <div className="container">
         {RowControl}
       </div>
@@ -1076,7 +1108,32 @@ var ModalControl=<div  key ="modal loco"className="modal fade" id="ModalControl"
                     
                     })}
       </select>{controlActivo != undefined &&
-      <button type="button" className="btn btn-primary" onClick={this.agregarCodigo.bind(this,controlActivo.IdControl)}>Agregar Codigos</button>}
+      <button type="button" className="btn btn-primary"   data-toggle="modal" data-target="#ModalLector" onClick={this.agregarCodigo.bind(this,controlActivo.IdControl)}>Agregar Codigos</button>}
+          {/* el modal para ver los socekts ios */}
+          {this.state.LeyendoCodigo == true && 
+          <div className="modal fade" id="ModalLector" tabIndex="-1" role="dialog" aria-labelledby="ModalLector" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="ModalLector">Leyendo Codigo</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    {this.state.LectorIRmessage != undefined && <div>
+                    <h3>Message : <h2>{this.state.LectorIRmessage['Mensaje']}</h2></h3>
+                    <h3>Estatus : <h2>{this.state.LectorIRmessage['Estado']}</h2></h3>
+                      </div>}
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div> }
+          {/* fin del modal */}
       <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.seleccionarContronId.bind(this,undefined,false)}>Close</button>
       </div> 
       

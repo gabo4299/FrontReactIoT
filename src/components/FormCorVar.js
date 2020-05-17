@@ -1,6 +1,6 @@
 import React  from 'react';
 import axios from 'axios';
-import cors from 'cors';
+
 import ipFunc from "../ipFunc.json"
 
 
@@ -44,7 +44,7 @@ componentDidMount() {
     axios.get(ipFunc["ipapi"]+"/Cuartos")
       .then(response => {
   
-         const  a=JSON.stringify(response.data);
+         
         //   console.log(response.data);
           axx.au=response.data;
          const b=JSON.stringify(axx.au.idcuarto);

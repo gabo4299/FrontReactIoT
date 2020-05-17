@@ -1,9 +1,7 @@
-//import React from 'react';
-import axios from 'axios';
-import cors from 'cors';
+
 import Routes from './Routes'
 import React ,{Component} from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 

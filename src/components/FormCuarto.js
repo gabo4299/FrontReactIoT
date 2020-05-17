@@ -1,9 +1,9 @@
 import React  from 'react';
 import axios from 'axios';
-import cors from 'cors';
+
 
 import ipFunc from "../ipFunc.json"
-import logo from '../logo.svg';
+
 import '../App.css';
 
 class FormCuarto extends React.Component {
