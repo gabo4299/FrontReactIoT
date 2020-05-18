@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import Switch from "react-switch";
 import axios from 'axios';
-
+/* eslint-disable */
 import ipFunc from '../ipFunc.json'
 import {
     BrowserRouter as Router,

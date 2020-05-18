@@ -3,7 +3,7 @@ import axios from 'axios';
 import ipFunc from '../ipFunc.json'
 
 import '../App.css';
-
+/* eslint-disable */
 class ModInt extends React.Component {
     constructor (e){
         super(e);

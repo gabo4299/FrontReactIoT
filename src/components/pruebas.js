@@ -10,7 +10,7 @@ import '../App.css';
 //import { CLIENT_RENEG_LIMIT } from 'tls';
 //import { Socket } from 'dgram';
 
-
+/* eslint-disable */
 class Prueba extends React.Component{
 
     constructor(props) {

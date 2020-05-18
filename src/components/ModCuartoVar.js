@@ -3,6 +3,7 @@ import React  from 'react';
 import axios from 'axios';
 import '../App.css';
 import ipFunc from "../ipFunc.json"
+/* eslint-disable */
 class ModCuartosVar extends React.Component {
 
     

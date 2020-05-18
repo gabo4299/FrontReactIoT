@@ -10,7 +10,7 @@ import io from 'socket.io-client'
 import ipFunc from '../ipFunc.json';
 import '../App.css';
 import Axios from 'axios';
-
+/* eslint-disable */
 class FormDisp extends React.Component{
 
     constructor(e){

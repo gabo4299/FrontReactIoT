@@ -5,7 +5,7 @@ import axios from 'axios';
 import ipFunc from '../ipFunc.json'
 
 import '../App.css';
-
+/* eslint-disable */
 class ModCor extends React.Component {
     constructor (e){
         super(e);

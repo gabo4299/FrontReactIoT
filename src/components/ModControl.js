@@ -5,7 +5,7 @@ import Switch from "react-switch";
 import ipFunc from '../ipFunc.json'
 
 import '../App.css';
-
+/* eslint-disable */
 class ModControl extends React.Component {
     constructor (e){
         super(e);
@@ -184,7 +184,7 @@ EliminarBot(id,val)
   
 }
 EliminarTodosBoot(id){
-  if (window.confirm("Esta seguro de elimianr todos los codigos"))
+  if (window.confirm("Esta seguro de eliminar todos los codigos"))
   {
     let link = ipFunc["ipapi"] +"/ControlIR/"+id+"/delAllCodes"
     if (this.state.Control.Marca == "")
@@ -382,9 +382,9 @@ EliminarTodosBoot(id){
                 RowControl=(<div className="container" key="Conrolaso">
                   <div className = "row justify-content-between">
                     < div className="col-md-auto">
-                      { this.state.Control.Codigos["Apagar"] != undefined &&
+                      { this.state.Control.Codigos["Off"] != undefined &&
                         <div>
-                          <button onClick={this.EliminarBot.bind(this,this.state.Control.IdControl,"Apagar")} className="btn btn-danger" id="btnControl" value="Apagar"> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Off' width='30'/> </button> 
+                          <button onClick={this.EliminarBot.bind(this,this.state.Control.IdControl,"Off")} className="btn btn-danger" id="btnControl" value="Off"> <img src={process.env.PUBLIC_URL + '/Images/btn-off.png'} alt='Off' width='30'/> </button> 
                           <p style ={{display :this.state.Visibility}}>Apagar</p> 
                           </div>
                       }
@@ -521,7 +521,7 @@ EliminarTodosBoot(id){
           <div className ="row">
             <div className="col" style={{backgroundColor:"#daeeff",borderRadius:"20px"}}>
               <h1 style={{color:"black"}}>Vista Actual Y eliminacion de botones de Control</h1>
-              <button className ="btn btn-danger" onClick={this.EliminarTodosBoot.bind(this,this.state.Control.IdControl)}> Elimianr todos los codigos</button>
+              <button className ="btn btn-danger" onClick={this.EliminarTodosBoot.bind(this,this.state.Control.IdControl)}> Eliminar todos los codigos</button>
             {RowControl}
             </div>
             <div className = "col">

@@ -5,7 +5,7 @@ import ipFunc from "../ipFunc.json"
 
 
 import '../App.css';
-
+/* eslint-disable */
 class FormCorVar extends React.Component {
 constructor(e){
     super(e);

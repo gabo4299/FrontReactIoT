@@ -5,7 +5,7 @@ import Switch from "react-switch";
 import ipFunc from "../ipFunc.json"
 
 import '../App.css';
-
+/* eslint-disable */
 class FormInterruptor extends React.Component {
 constructor (){
     super();

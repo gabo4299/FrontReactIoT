@@ -6,7 +6,7 @@ import ipFunc from "../ipFunc.json"
 
 
 import '../App.css';
-
+/* eslint-disable */
 class FormCortina extends React.Component {
 constructor(){
     super();

@@ -5,7 +5,7 @@ import ipFunc from "../ipFunc.json"
 import Switch from "react-switch";
 
 import '../App.css';
-
+/* eslint-disable */
 class FormControl extends React.Component {
 constructor(e){
     super(e);

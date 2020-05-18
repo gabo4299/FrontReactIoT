@@ -9,7 +9,7 @@ import io from 'socket.io-client'
 import ipFunc from '../ipFunc.json';
 import '../App.css';
 
-
+/* eslint-disable */
 
 import { Prompt,Link } from 'react-router-dom'
 

@@ -12,7 +12,7 @@
 // }
 
 // export default Home
-
+/* eslint-disable */
 
 
 import React from 'react';
@@ -44,6 +44,7 @@ render(){
             <header className="App-header">
             <img src={process.env.PUBLIC_URL + '/Images/Escudo.png'} alt='Escudo' width='400'/>
                 <h1> Este va ser un como una constante </h1>
+                <a href="/main"><li>casa</li></a>
                 <div>
                 {this.state.people.map((person, index) => (
                     <p key = {person.name}>Hello, {person.name} !</p>
