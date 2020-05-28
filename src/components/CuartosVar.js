@@ -482,22 +482,32 @@ ModifPress(e){
 CambioLuz(val,id,pos)
 {
   let lin =ipFunc["ipapi"]+"/Cuarto/";
-  lin=lin+this.state.idcuarto+"/Luz/"+id+"/Estado";
-  var Estado={"Estado":0}
+  lin=lin+this.state.idcuarto+"/Luz/"+id+"/Onlystate";
+  let linCambio =ipFunc["ipapi"]+"/Cuarto/";
+  linCambio=linCambio+this.state.idcuarto+"/Luz/"+id+"/Invertrele";
+
+
+  
   let config = {headers: {'Access-Control-Allow-Origin': "*" }};
   console.log("este es el valor de este :",val ,"y su id : ",id);
   
 
   
   if (val== "Apagado"){
-    Estado.Estado=1
-    axios.post(lin,Estado,config);
+    
+    lin=lin+"/Encendido"
+    axios.get(lin);
+    
+    axios.get(linCambio);
 
  
   }
   if (val== "Encendido"){
-    Estado.Estado=0
-    axios.post(lin,Estado,config);
+    lin=lin+"/Apagado"
+    axios.get(lin);
+    
+    axios.get(linCambio);
+
     
   }}
 

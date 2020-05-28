@@ -1,11 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Funciona con la vercion 2 de IoT Home Con MCUy ESP32
+Funciona con la version 2.1.4 de IoT Home Con MCUy ESP32
 
 
 
     
-## Available Scripts
+## V2.1.1
+Adaptando la mierdita de luces y estados por separado
 
 In the project directory, you can run:
 
