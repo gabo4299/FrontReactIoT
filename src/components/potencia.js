@@ -17,7 +17,7 @@ componentDidMount(){
 }
 On_Off(val){
     let lin=ipFunc["ip"]+"/API/Potencia/"
-    
+    var dat={n:val}
     if (val== 100){
 
         this.setState({
@@ -32,18 +32,20 @@ On_Off(val){
               })
         }
     }
-    axios.post(lin,val)
+    axios.post(lin,dat)
 
 }
 Dimm(e)
 {
     let lin=ipFunc["ip"]+"/API/Potencia/"
     let val=parseInt([e.target.value])
+    var dat={n:val}
     console.log(val)
     this.setState({
         Estado:val
       })
-      axios.post(lin,val)
+
+      axios.post(lin,dat)
 
 }
 
