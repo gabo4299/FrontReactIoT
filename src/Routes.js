@@ -16,6 +16,7 @@ import FormDisp from './components/FormDisp';
 import FormLecIR from './components/FormLecIR';
 import FormControl from './components/FormControl';
 import ModControl from './components/ModControl';
+import potencia from './components/potencia';
 
 
 
@@ -33,6 +34,7 @@ const Routes = () => {
         <Route  path='/formCor' component ={FormCortina} />
         <Route  path='/Main' component ={MainHome} />
         <Route exact path="/Cuarto/:date" component={CuartosVar}   />
+        <Route exact path="/Potencia" component={potencia}   />
         
         <Route path='/Prueba' component={Prueba}/>
         <Route path='/mod/:date' component={ModCuartosVar}/>
